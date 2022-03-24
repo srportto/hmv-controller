@@ -1,13 +1,12 @@
 package br.com.hmv.dtos.general.administrativo;
 
-import br.com.hmv.models.entities.Convenio;
+import br.com.hmv.models.entities.ConvenioAdministrativo;
 import br.com.hmv.models.enums.StatusConvenioEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -29,11 +28,11 @@ public class ConvenioAtendidoAdministrativoDTO implements Serializable {
 	private LocalDateTime dataAtualizacao;
 
 	//? construtor diferenciado - de entity para DTO
-	public ConvenioAtendidoAdministrativoDTO(Convenio convenio) {
-		id = convenio.getId();
-		descricao = convenio.getDescricao();
-		statusConvenio = StatusConvenioEnum.obterStatusConvenio(convenio.getCodigoStatusConvenio());
-		dataCriacao = convenio.getDataCriacao();
-		dataAtualizacao = convenio.getDataAtualizacao();
+	public ConvenioAtendidoAdministrativoDTO(ConvenioAdministrativo convenioAdministrativo) {
+		id = convenioAdministrativo.getId();
+		descricao = convenioAdministrativo.getDescricao();
+		statusConvenio = StatusConvenioEnum.obterStatusConvenio(convenioAdministrativo.getCodigoStatusConvenio());
+		dataCriacao = convenioAdministrativo.getDataCriacao();
+		dataAtualizacao = convenioAdministrativo.getDataAtualizacao();
 	}
 }

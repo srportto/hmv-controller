@@ -41,7 +41,7 @@ public class HospitalDTO implements Serializable {
     public HospitalDTO(Hospital entity) {
         codigoUnidade = entity.getCodigoUnidade();
         nomeUnidade = entity.getNomeUnidade();
-        endereco = new EnderecoAdministrativoDTO(entity.getEndereco());
+        endereco = new EnderecoAdministrativoDTO(entity.getEnderecoAdministrativo());
         statusUnidadeHospital = StatusUnidadeHospitalEnum.obterStatusUnidadeHospital(entity.getCodigoStatusUnidade());
         dataCriacao = entity.getDataCriacao();
         dataAtualizacao = entity.getDataAtualizacao();

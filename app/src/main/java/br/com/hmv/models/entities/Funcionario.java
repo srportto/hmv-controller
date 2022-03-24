@@ -54,7 +54,7 @@ public class Funcionario implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
-    private Endereco endereco;
+    private EnderecoAdministrativo endereco;
 
     @Column(name = "codigo_grupo_funcao", nullable = false)
     private Long codigoGrupoFuncao;

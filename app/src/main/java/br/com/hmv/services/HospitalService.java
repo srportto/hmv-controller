@@ -7,10 +7,10 @@ import br.com.hmv.dtos.request.administrativo.HospitalUnidadeInsertRequestDTO;
 import br.com.hmv.dtos.responses.administrativo.HospitalDefaultResponseDTO;
 import br.com.hmv.exceptions.DatabaseException;
 import br.com.hmv.exceptions.ResourceNotFoundException;
-import br.com.hmv.models.entities.Endereco;
+import br.com.hmv.models.entities.EnderecoAdministrativo;
 import br.com.hmv.models.entities.Hospital;
 import br.com.hmv.models.enums.StatusUnidadeHospitalEnum;
-import br.com.hmv.repositories.EnderecoRepository;
+import br.com.hmv.repositories.EnderecoAdministrativoRepository;
 import br.com.hmv.repositories.EspecialidadeRepository;
 import br.com.hmv.repositories.HospitalRepository;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ import java.util.UUID;
 public class HospitalService {
     private static Logger logger = LoggerFactory.getLogger(HospitalService.class);
     private HospitalRepository hospitalRepository;
-    private EnderecoRepository enderecoRepository;
+    private EnderecoAdministrativoRepository enderecoAdministrativoRepository;
     private EspecialidadeRepository especialidadeRepository;
 
     @Transactional
@@ -176,16 +176,16 @@ public class HospitalService {
         entity.setCodigoStatusUnidade(StatusUnidadeHospitalEnum.ATIVA.getCodigoStatusHospitalUnidade());
 
         //Endereco endereco = enderecoRepository.getOne(dto.getEndereco().getId());
-        Endereco endereco = new Endereco();
-        endereco.setCodigoEndereco(UUID.randomUUID().toString());
-        endereco.setDescricao(dto.getEndereco().getDescricao());
-        endereco.setLogradouro(dto.getEndereco().getLogradouro());
-        endereco.setNumero(dto.getEndereco().getNumero());
-        endereco.setComplemento(dto.getEndereco().getComplemento());
-        endereco.setCidade(dto.getEndereco().getCidade());
-        endereco.setUf(dto.getEndereco().getUf());
-        endereco.setCep(dto.getEndereco().getCep());
-        entity.setEndereco(endereco);
+        EnderecoAdministrativo enderecoAdministrativo = new EnderecoAdministrativo();
+        enderecoAdministrativo.setCodigoEndereco(UUID.randomUUID().toString());
+        enderecoAdministrativo.setDescricao(dto.getEndereco().getDescricao());
+        enderecoAdministrativo.setLogradouro(dto.getEndereco().getLogradouro());
+        enderecoAdministrativo.setNumero(dto.getEndereco().getNumero());
+        enderecoAdministrativo.setComplemento(dto.getEndereco().getComplemento());
+        enderecoAdministrativo.setCidade(dto.getEndereco().getCidade());
+        enderecoAdministrativo.setUf(dto.getEndereco().getUf());
+        enderecoAdministrativo.setCep(dto.getEndereco().getCep());
+        entity.setEnderecoAdministrativo(enderecoAdministrativo);
         entity.getEspecialidades().clear();
 
         logger.info("{} - conversao realizada com sucesso {}", logCode, entity);

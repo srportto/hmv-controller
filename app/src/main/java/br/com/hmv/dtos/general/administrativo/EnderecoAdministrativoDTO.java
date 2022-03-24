@@ -1,16 +1,12 @@
 package br.com.hmv.dtos.general.administrativo;
 
-import br.com.hmv.models.entities.Endereco;
-import br.com.hmv.models.entities.Hospital;
-import br.com.hmv.models.enums.StatusUnidadeHospitalEnum;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import br.com.hmv.models.entities.EnderecoAdministrativo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
@@ -30,7 +26,7 @@ public class EnderecoAdministrativoDTO implements Serializable {
     private Integer cep;
 
     //? construtor diferenciado - de entity para DTO
-    public EnderecoAdministrativoDTO(Endereco entity) {
+    public EnderecoAdministrativoDTO(EnderecoAdministrativo entity) {
 
         codigoEndereco = entity.getCodigoEndereco();
         descricao = entity.getDescricao();

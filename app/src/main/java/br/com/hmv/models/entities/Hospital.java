@@ -35,7 +35,7 @@ public class Hospital implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
-    private Endereco endereco;
+    private EnderecoAdministrativo enderecoAdministrativo;
 
     private Long codigoStatusUnidade;
 

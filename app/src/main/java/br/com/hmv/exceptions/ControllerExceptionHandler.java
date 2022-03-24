@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
 
 @ControllerAdvice
-public class ResourceExceptionHandler {
+public class ControllerExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class) //!==> intercepta o lancamento de execoes desse tipo
     public ResponseEntity<LayoutExceptionsProject> entityNotFound(ResourceNotFoundException error, HttpServletRequest req){
 
@@ -47,7 +47,10 @@ public class ResourceExceptionHandler {
         layoutResponseExceptionValidation.setTimestamp(Instant.now());
         layoutResponseExceptionValidation.setStatus(status.value());
         layoutResponseExceptionValidation.setError("Validation exception");
-        layoutResponseExceptionValidation.setMessage(e.getMessage());
+
+//      Comentado para enviar uma mensagem resumida
+//      layoutResponseExceptionValidation.setMessage(e.getMessage());
+        layoutResponseExceptionValidation.setMessage("Erro durante a validacao da requisicao, confira as occurrences...");
         layoutResponseExceptionValidation.setPath(request.getRequestURI());
 
         for (FieldError f : e.getBindingResult().getFieldErrors()) {

@@ -1,6 +1,6 @@
 package br.com.hmv.dtos.responses.administrativo;
 
-import br.com.hmv.models.entities.Convenio;
+import br.com.hmv.models.entities.ConvenioAdministrativo;
 import br.com.hmv.models.enums.StatusConvenioEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class ConvenioDefaultResponseDTO {
     private LocalDateTime dataAtualizacao;
 
     //Construtor diferenciado
-    public ConvenioDefaultResponseDTO(Convenio entity) {
+    public ConvenioDefaultResponseDTO(ConvenioAdministrativo entity) {
         id = entity.getId();
         descricao = entity.getDescricao();
         statusConvenio = StatusConvenioEnum.obterStatusConvenio(entity.getCodigoStatusConvenio());
