@@ -13,7 +13,7 @@
     <groupId>br.com.hmv</groupId>
     <artifactId>hmv-controller</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>hmv-administrativo</name>
+    <name>hmv-controller</name>
     <description>Aplicacao para acoes no lado administrativo do hmv</description>
     <properties>
         <java.version>11</java.version>
@@ -74,6 +74,22 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok-mapstruct-binding</artifactId>
             <version>${version.mapstruct-lombok}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
         </dependency>
 
     </dependencies>

@@ -6,11 +6,18 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -18,7 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_pacientes")
-public class Paciente implements Serializable {
+public class Paciente implements UserDetails, Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -44,6 +51,12 @@ public class Paciente implements Serializable {
 
     @Column(name = "senha", nullable = false)
     private String senha;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_paciente_role",
+            joinColumns = @JoinColumn(name = "paciente_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
     @Column(name = "indicador_tipo_cadastro_realizado", nullable = false, length = 1)
     private Integer indicadorTipoCadastroRealizado;
@@ -77,4 +90,44 @@ public class Paciente implements Serializable {
     @UpdateTimestamp
     @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
+
+
+    //? >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    //? abaixo os metodos para atender a implementacao da interface UserDetails
+    //? >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

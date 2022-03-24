@@ -9,11 +9,14 @@ import br.com.hmv.dtos.responses.administrativo.FuncionarioForListResponseDTO;
 import br.com.hmv.exceptions.DatabaseException;
 import br.com.hmv.exceptions.ResourceNotFoundException;
 import br.com.hmv.models.entities.Funcionario;
+import br.com.hmv.models.entities.Role;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
+import br.com.hmv.models.enums.NivelPermissaoEnum;
 import br.com.hmv.models.enums.StatusFuncionarioEnum;
 import br.com.hmv.models.mappers.FuncionarioMapper;
 import br.com.hmv.repositories.EspecialidadeRepository;
 import br.com.hmv.repositories.FuncionarioRepository;
+import br.com.hmv.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +24,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +38,8 @@ public class FuncionarioService {
     private static Logger logger = LoggerFactory.getLogger(FuncionarioService.class);
     private FuncionarioRepository funcionarioRepository;
     private EspecialidadeRepository especialidadeRepository;
+    private RoleRepository roleRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Transactional
     public FuncionarioDefaultResponseDTO criacao(FuncionarioInsertRequestDTO dto) {
@@ -186,6 +192,22 @@ public class FuncionarioService {
         entity.setIdFuncionario(UUID.randomUUID().toString());
         entity.setCodigoGrupoFuncao(dto.getGrupoFuncaoFuncionario().getCodigoGrupoFuncaoFuncionario());
         entity.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
+
+        var senhaFuncionario = dto.getSenha();
+        var senhaFuncionarioCriptografada = passwordEncoder.encode(senhaFuncionario);
+        entity.setSenha(senhaFuncionarioCriptografada);
+
+        entity.getRoles().clear();
+        Role role;
+
+        var grupoFuncaoFuncionario = dto.getGrupoFuncaoFuncionario();
+        if (grupoFuncaoFuncionario.name().equalsIgnoreCase(GrupoFuncaoFuncionarioEnum.MEDICO.name())) {
+            role = roleRepository.getOne(NivelPermissaoEnum.ROLE_MEDICO.getNivelPermissao());
+        } else {
+            role = roleRepository.getOne(NivelPermissaoEnum.ROLE_ADMINISTRATIVO.getNivelPermissao());
+        }
+
+        entity.getRoles().add(role);
 
         var endereco = entity.getEndereco();
         endereco.setCodigoEndereco(UUID.randomUUID().toString());

@@ -11,13 +11,17 @@ import br.com.hmv.exceptions.ResourceNotFoundException;
 import br.com.hmv.models.entities.ConvenioPaciente;
 import br.com.hmv.models.entities.EnderecoPaciente;
 import br.com.hmv.models.entities.Paciente;
+import br.com.hmv.models.entities.Role;
 import br.com.hmv.models.entities.Telefone;
 import br.com.hmv.models.enums.CadastroPacienteEnum;
+import br.com.hmv.models.enums.NivelPermissaoEnum;
 import br.com.hmv.models.mappers.PacienteMapper;
 import br.com.hmv.repositories.PacienteRepository;
+import br.com.hmv.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +34,8 @@ import java.util.UUID;
 public class PacienteService {
     private static Logger logger = LoggerFactory.getLogger(PacienteService.class);
     private PacienteRepository pacienteRepository;
+    private RoleRepository roleRepository;
+    private BCryptPasswordEncoder passwordEncoder;
 
 
     @Transactional
@@ -86,8 +92,16 @@ public class PacienteService {
         var entity = PacienteMapper.INSTANCE.deDtoParaEntity(dto);
 
         entity.setIdPaciente(UUID.randomUUID().toString());
-
         entity.setIndicadorTipoCadastroRealizado(CadastroPacienteEnum.SIMPLES.getCodigoStatusCadastroPaciente());
+
+        var senhaPaciente = dto.getSenha();
+        var senhaPacienteCriptografada = passwordEncoder.encode(senhaPaciente);
+        entity.setSenha(senhaPacienteCriptografada);
+
+        // setando a Role default do paciente
+        entity.getRoles().clear();
+        Role role = roleRepository.getOne(NivelPermissaoEnum.ROLE_PACIENTE.getNivelPermissao());
+        entity.getRoles().add(role);
 
         EnderecoPaciente endereco = new EnderecoPaciente();
         endereco.setCodigoEndereco(UUID.randomUUID().toString());

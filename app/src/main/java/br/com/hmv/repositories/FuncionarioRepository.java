@@ -16,4 +16,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     void deleteByIdFuncionario(String idFuncionario);
 
     Page<Funcionario> findFuncionarioByCodigoGrupoFuncao(Long codigoGrupoFuncao, Pageable pageable);
+
+    Funcionario findFuncionarioByEmail(String email);
 }
