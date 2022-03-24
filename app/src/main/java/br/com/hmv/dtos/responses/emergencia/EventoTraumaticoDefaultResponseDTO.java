@@ -1,0 +1,29 @@
+package br.com.hmv.dtos.responses.emergencia;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class EventoTraumaticoDefaultResponseDTO {
+    private static final long serialVersionUID = 1L;
+
+    private Long id;
+
+    @JsonProperty("descricao")
+    private String descricao;
+
+    @JsonProperty("score")
+    private Integer score;
+
+    @JsonProperty("data_criacao")
+    private LocalDateTime dataCriacao;
+
+    @JsonProperty("data_atualizacao")
+    private LocalDateTime dataAtualizacao;
+}

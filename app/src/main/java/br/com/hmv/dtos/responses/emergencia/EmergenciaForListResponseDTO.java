@@ -1,0 +1,36 @@
+package br.com.hmv.dtos.responses.emergencia;
+
+import br.com.hmv.models.enums.StatusEmergenciaEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class EmergenciaForListResponseDTO {
+    @JsonProperty("codigo_emergencia")
+    private String codigoEmergencia;
+
+    @JsonProperty("id_paciente")
+    private String idPaciente;
+
+
+    @JsonProperty("primeiro_nome_paciente")
+    private String primeiroNomePaciente;
+
+    @JsonProperty("score_prioridade")
+    private Integer score;
+
+
+    @JsonProperty("status")
+    private StatusEmergenciaEnum statusEmergencia;
+
+    @JsonIgnore
+    private DetalhePedidoAtendimentoDefaultResponseDTO detalhesPedidoAtendimento;
+
+}
