@@ -47,7 +47,7 @@ public class AuthService implements UserDetailsService {
             Funcionario funcionario = funcionarioRepository.findFuncionarioByEmail(username);
             if (funcionario != null) {
                 user = funcionario;
-                logger.info("{} - usuario encontrado eh um funcionario {}  ", logCode, funcionario);
+                logger.info("{} - usuario encontrado eh um funcionario ", logCode);
             }
         }
 
@@ -75,6 +75,7 @@ public class AuthService implements UserDetailsService {
         logger.info("{} - tabela de nivel de permissao (roles) populada com sucesso {}", logCode, NivelPermissaoEnum.values());
     }
 
+    @Transactional
     public void criaUsuariomaster() {
         String logCode = "criaUsuariomaster()";
         logger.info("{} - criando usuario master {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
