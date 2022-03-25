@@ -25,24 +25,24 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
     //? Rotas liberadas somente para o perfils OPERATOR/ADMIN
     private static final String[] OPERATOR_OR_ADMIN = {
-            "/emergencias/**",
-            "/especialidades/**",
-            "/eventos_traumaticos/**",
-            "/funcionarios/**",
-            "/habitos/**",
-            "/pacientes/**",
-            "/sintomas/**"};
+            "/api/emergencias/**",
+            "/api/especialidades/**",
+            "/api/eventos_traumaticos/**",
+            "/api/funcionarios/**",
+            "/api/habitos/**",
+            "/api/pacientes/**",
+            "/api/sintomas/**"};
 
     //? Rotas liberadas somente para o perfils PACIENTE
-    private static final String[] PACIENTE = {
-            "/emergencias/**",
-            "/eventos_traumaticos/**",
-            "/habitos/**",
-            "/pacientes/**",
-            "/sintomas/**"};
+    private static final String[] PACIENTE = {"/api/emergencias/**"};
+
+    //? Rotas liberadas somente para o perfils PACIENTE
+    private static final String[] PACIENTE_PUBLIC = {
+            "/api/pacientes/**",
+    };
 
     //? Rota liberada somente para o perfil ADMIN
-    private static final String[] ADMIN = {"/hospitais/**", "/convenios/**"};
+    private static final String[] ADMIN = {"/api/hospitais/**", "/api/convenios/**"};
 
     //? Esse metodo validara se o token eh valido para acessar o recurso
     @Override
@@ -61,11 +61,12 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
         }
 
         http.authorizeRequests()
-                .antMatchers(PUBLIC).permitAll()                                                   //> Para acessar os recursos da aplicação declarados no vetor de strings PUBLIC, não exigir nenhum perfil e permitir todos os acessos os tipos de acessos
-                .antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).permitAll()                        //> Para acessar os recursos da aplicação declarados no vetor de strings OPERATOR_OR_ADMIN, permitir todos os acessos somente quando acessadas com GET
-                .antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("ADMINISTRATIVO", "MASTER")      //> Para acessar os recursos da aplicação declarados no vetor de strings OPERATOR_OR_ADMIN, quando acessadas diferentes de GET, exigir  os perfils ADMIN ou OPERATOR
-                .antMatchers(ADMIN).hasRole("ADMINISTRADOR")                                       //> Para acessar os recursos da aplicação declarados no vetor de strings ADMIN, exigir  os perfils ADMIN
-                .antMatchers(PACIENTE).hasRole("PACIENTE")                                         //> Para acessar os recursos da aplicação declarados no vetor de strings PACIENTE, exigir  os perfils PACIENTE
-                .anyRequest().authenticated();                                                     //> Para acessar qualquer outro recursos (fora os de cima) , só precisa estar autenticado
+                .antMatchers(PUBLIC).permitAll()
+                .antMatchers(HttpMethod.POST, PACIENTE_PUBLIC).permitAll()
+                .antMatchers(HttpMethod.GET, OPERATOR_OR_ADMIN).hasAnyRole("ADMINISTRATIVO", "MASTER", "PACIENTE")
+                .antMatchers(OPERATOR_OR_ADMIN).hasAnyRole("ADMINISTRATIVO", "MASTER")
+                .antMatchers(ADMIN).hasRole("ADMINISTRADOR")
+                .antMatchers(PACIENTE).hasRole("PACIENTE")
+                .anyRequest().authenticated();
     }
 }

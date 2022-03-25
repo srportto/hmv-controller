@@ -31,6 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/actuator/**");
+        //! Abaixo, codigo  pra testar liberacao de rotas
+        // web.ignoring().antMatchers(HttpMethod.POST, "/api/pacientes/**");
     }
 
     //? ------------------------------------------------------------
