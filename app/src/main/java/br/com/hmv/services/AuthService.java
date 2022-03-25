@@ -66,10 +66,15 @@ public class AuthService implements UserDetailsService {
         logger.info("{} - percorrendo enum de nivel de permissao {}", logCode, NivelPermissaoEnum.values());
 
         for (NivelPermissaoEnum itemNivelPermissao : NivelPermissaoEnum.values()) {
-            Role roleEntity = new Role();
+            try {
+                Role roleEntity = new Role();
 
-            roleEntity.setAuthority(itemNivelPermissao.name());
-            roleRepository.save(roleEntity);
+
+                roleEntity.setAuthority(itemNivelPermissao.name());
+                roleRepository.save(roleEntity);
+            } catch (Exception e) {
+                logger.error("{} - algo deu errado ao preencher a tabela de roles {}", logCode, e.getMessage());
+            }
         }
 
         logger.info("{} - tabela de nivel de permissao (roles) populada com sucesso {}", logCode, NivelPermissaoEnum.values());

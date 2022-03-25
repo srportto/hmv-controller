@@ -286,13 +286,18 @@ public class EmergenciaService {
                 var codigoRegiaoDor = itemRegiaoDor.getCodigoRegiaoDor();
                 var codigoEscalaDor = itemEscalaDor.getCodigoEscalaDeDor();
 
-                var objOptional = regiaoDorEscalaRepository.findRegiaoDorEscalaByCodigoRegiaoDorAndCodigoEscalaDor(codigoRegiaoDor, codigoEscalaDor);
+                try {
 
-                if (!objOptional.isPresent()) {
-                    var entityRegiaoDorEscala = new RegiaoDorEscala();
-                    entityRegiaoDorEscala.setCodigoRegiaoDor(codigoRegiaoDor);
-                    entityRegiaoDorEscala.setCodigoEscalaDor(codigoEscalaDor);
-                    regiaoDorEscalaRepository.save(entityRegiaoDorEscala);
+                    var objOptional = regiaoDorEscalaRepository.findRegiaoDorEscalaByCodigoRegiaoDorAndCodigoEscalaDor(codigoRegiaoDor, codigoEscalaDor);
+
+                    if (!objOptional.isPresent()) {
+                        var entityRegiaoDorEscala = new RegiaoDorEscala();
+                        entityRegiaoDorEscala.setCodigoRegiaoDor(codigoRegiaoDor);
+                        entityRegiaoDorEscala.setCodigoEscalaDor(codigoEscalaDor);
+                        regiaoDorEscalaRepository.save(entityRegiaoDorEscala);
+                    }
+                } catch (Exception e) {
+                    logger.error("{} - algo deu errado ao tentar popular tabela de escala de dor {}", logCode, e.getMessage());
                 }
             }
         }
