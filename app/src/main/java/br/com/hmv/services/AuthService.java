@@ -67,11 +67,15 @@ public class AuthService implements UserDetailsService {
 
         for (NivelPermissaoEnum itemNivelPermissao : NivelPermissaoEnum.values()) {
             try {
-                Role roleEntity = new Role();
 
+                var role = roleRepository.findRoleByAuthority(itemNivelPermissao.name());
 
-                roleEntity.setAuthority(itemNivelPermissao.name());
-                roleRepository.save(roleEntity);
+                if (role == null) {
+                    Role roleEntity = new Role();
+                    roleEntity.setAuthority(itemNivelPermissao.name());
+                    roleRepository.save(roleEntity);
+                }
+
             } catch (Exception e) {
                 logger.error("{} - algo deu errado ao preencher a tabela de roles {}", logCode, e.getMessage());
             }
@@ -85,47 +89,48 @@ public class AuthService implements UserDetailsService {
         String logCode = "criaUsuariomaster()";
         logger.info("{} - criando usuario master {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
 
-        Funcionario funcionario = new Funcionario();
-
-        funcionario.setIdFuncionario(UUID.randomUUID().toString());
-        funcionario.setEmail("tangomaster1010@hmv-master.com.br");
-
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String senha = "tenhoMundialF1faç";
-        var senhaCriptografada = passwordEncoder.encode(senha);
-        funcionario.setSenha(senhaCriptografada);
-
-        Role role = roleRepository.findRoleByAuthority(NivelPermissaoEnum.ROLE_MASTER.name());
-        funcionario.getRoles().add(role);
-        funcionario.setCpf("999-999-999-99");
-        funcionario.setCrm("");
-        funcionario.setPrimeiroNome("usermaster");
-        funcionario.setNomeCompleto("user master application hmv");
-        funcionario.setDataNascimento(LocalDate.of(1993, 10, 02));
-
-        EnderecoAdministrativo endereco = new EnderecoAdministrativo();
-        endereco.setCodigoEndereco(UUID.randomUUID().toString());
-        endereco.setDescricao("endereco da matriz");
-        endereco.setLogradouro("R. Ramiro Barcelos");
-        endereco.setNumero(910);
-        endereco.setComplemento("predio cinza");
-        endereco.setCidade("Porto Alegre");
-        endereco.setUf("RS");
-        endereco.setCep(90035000);
-
-        funcionario.setEndereco(endereco);
-        funcionario.setCodigoGrupoFuncao(GrupoFuncaoFuncionarioEnum.MASTER.getCodigoGrupoFuncaoFuncionario());
-        funcionario.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
-
-        Telefone telefone = new Telefone();
-        telefone.setDescricao("telefone user master");
-        telefone.setCodigoPais(55);
-        telefone.setCodigoArea(11);
-        telefone.setNumero(973801014);
-
-        funcionario.setTelefone(telefone);
-
         try {
+            Funcionario funcionario = new Funcionario();
+
+            funcionario.setIdFuncionario(UUID.randomUUID().toString());
+            funcionario.setEmail("tangomaster1010@hmv-master.com.br");
+
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            String senha = "tenhoMundialF1faç";
+            var senhaCriptografada = passwordEncoder.encode(senha);
+            funcionario.setSenha(senhaCriptografada);
+
+
+            Role role = roleRepository.findRoleByAuthority(NivelPermissaoEnum.ROLE_MASTER.name());
+            funcionario.getRoles().add(role);
+            funcionario.setCpf("999-999-999-99");
+            funcionario.setCrm("");
+            funcionario.setPrimeiroNome("usermaster");
+            funcionario.setNomeCompleto("user master application hmv");
+            funcionario.setDataNascimento(LocalDate.of(1993, 10, 02));
+
+            EnderecoAdministrativo endereco = new EnderecoAdministrativo();
+            endereco.setCodigoEndereco(UUID.randomUUID().toString());
+            endereco.setDescricao("endereco da matriz");
+            endereco.setLogradouro("R. Ramiro Barcelos");
+            endereco.setNumero(910);
+            endereco.setComplemento("predio cinza");
+            endereco.setCidade("Porto Alegre");
+            endereco.setUf("RS");
+            endereco.setCep(90035000);
+
+            funcionario.setEndereco(endereco);
+            funcionario.setCodigoGrupoFuncao(GrupoFuncaoFuncionarioEnum.MASTER.getCodigoGrupoFuncaoFuncionario());
+            funcionario.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
+
+            Telefone telefone = new Telefone();
+            telefone.setDescricao("telefone user master");
+            telefone.setCodigoPais(55);
+            telefone.setCodigoArea(11);
+            telefone.setNumero(973801014);
+
+            funcionario.setTelefone(telefone);
+
             funcionarioRepository.save(funcionario);
         } catch (Exception e) {
             logger.error("{} - erro ao cadastrar usuario master , possivel cadadastrar {}", logCode, e.getMessage());
