@@ -120,9 +120,13 @@ public class AuthService implements UserDetailsService {
 
         funcionario.setTelefone(telefone);
 
-        funcionarioRepository.save(funcionario);
+        try {
+            funcionarioRepository.save(funcionario);
+        } catch (Exception e) {
+            logger.error("{} - erro ao cadastrar usuario master , possivel cadadastrar {}", logCode, e.getMessage());
+        }
 
-        logger.info("{} - usuario master criado com sucesso {}", logCode, NivelPermissaoEnum.values());
+        logger.info("{} - usuario master criado com sucesso {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
     }
 
 }
