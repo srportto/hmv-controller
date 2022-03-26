@@ -6,6 +6,7 @@ import br.com.hmv.dtos.request.paciente.PacienteInsertRequestDTO;
 import br.com.hmv.dtos.request.paciente.PacienteUpdateAllRequestDTO;
 import br.com.hmv.dtos.request.paciente.TelefoneRequestDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteDefaultResponseDTO;
+import br.com.hmv.dtos.responses.paciente.PacienteForListResponseDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteInsertResponseDTO;
 import br.com.hmv.exceptions.ResourceNotFoundException;
 import br.com.hmv.models.entities.ConvenioPaciente;
@@ -21,6 +22,8 @@ import br.com.hmv.repositories.RoleRepository;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -84,6 +87,15 @@ public class PacienteService {
         return PacienteMapper.INSTANCE.deEntityParaDtoDefault(entity);
     }
 
+    @Transactional(readOnly = true)
+    public Page<PacienteForListResponseDTO> findAllPaged(Pageable pageable) {
+        String logCode = "findAllPaged(Pageable)";
+        logger.info("{} - consulta paginada de recursos vide parametros {}", logCode, pageable);
+
+        Page<Paciente> list = pacienteRepository.findAll(pageable);
+        logger.info("{} - consulta paginada de recursos realizada com sucesso: {}", logCode, list);
+        return list.map(itemPacienteEntity -> PacienteMapper.INSTANCE.deEntityParaRespresentacaoEmLista(itemPacienteEntity));
+    }
 
     private Paciente dtoToEntityOnCreate(PacienteInsertRequestDTO dto) {
         String logCode = "dtoToEntityOnCreate(PacienteInsertRequestDTO)";

@@ -4,11 +4,14 @@ package br.com.hmv.controllers;
 import br.com.hmv.dtos.request.paciente.PacienteInsertRequestDTO;
 import br.com.hmv.dtos.request.paciente.PacienteUpdateAllRequestDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteDefaultResponseDTO;
+import br.com.hmv.dtos.responses.paciente.PacienteForListResponseDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteInsertResponseDTO;
 import br.com.hmv.services.PacienteService;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -62,6 +65,17 @@ public class PacienteController {
 
         logger.info("{} - solicitacao de consulta detalhe realizada com sucesso {}", logCode, responseDTO);
         return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PacienteForListResponseDTO>> findAll(Pageable pageable) {
+        String logCode = "findAll(Pageable)";
+        logger.info("{} - solicitacao de consulta todos paginada {}", logCode, pageable);
+
+        Page<PacienteForListResponseDTO> responseDtoInList = service.findAllPaged(pageable);
+
+        logger.info("{} - solicitacao de consulta todos paginada realizada com sucesso{}", logCode, pageable);
+        return ResponseEntity.ok().body(responseDtoInList);
     }
 
 }

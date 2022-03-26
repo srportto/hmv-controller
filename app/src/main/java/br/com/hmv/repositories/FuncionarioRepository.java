@@ -18,4 +18,6 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     Page<Funcionario> findFuncionarioByCodigoGrupoFuncao(Long codigoGrupoFuncao, Pageable pageable);
 
     Funcionario findFuncionarioByEmail(String email);
+
+    Funcionario findFuncionarioByCpf(String cpf);
 }

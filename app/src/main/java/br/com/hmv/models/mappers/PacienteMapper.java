@@ -2,6 +2,7 @@ package br.com.hmv.models.mappers;
 
 import br.com.hmv.dtos.request.paciente.PacienteInsertRequestDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteDefaultResponseDTO;
+import br.com.hmv.dtos.responses.paciente.PacienteForListResponseDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteInsertResponseDTO;
 import br.com.hmv.models.entities.Paciente;
 import br.com.hmv.models.enums.CadastroPacienteEnum;
@@ -33,5 +34,7 @@ public abstract class PacienteMapper {
         dto.setIndicadorCadastro(CadastroPacienteEnum.obterStatusCadastroPaciente(entity.getIndicadorTipoCadastroRealizado()));
 
     }
+
+    public abstract PacienteForListResponseDTO deEntityParaRespresentacaoEmLista(Paciente entity);
 
 }

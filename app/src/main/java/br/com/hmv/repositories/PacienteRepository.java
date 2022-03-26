@@ -15,4 +15,6 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     Paciente findPacienteByEmail(String email);
 
+    Paciente findPacienteByCpf(String cpf);
+
 }
