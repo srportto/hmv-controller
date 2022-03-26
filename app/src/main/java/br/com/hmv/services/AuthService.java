@@ -1,5 +1,6 @@
 package br.com.hmv.services;
 
+import br.com.hmv.configurations.components.UserMaster;
 import br.com.hmv.models.entities.EnderecoAdministrativo;
 import br.com.hmv.models.entities.Funcionario;
 import br.com.hmv.models.entities.Paciente;
@@ -31,6 +32,7 @@ public class AuthService implements UserDetailsService {
     private PacienteRepository pacienteRepository;
     private FuncionarioRepository funcionarioRepository;
     private RoleRepository roleRepository;
+    private UserMaster userMaster;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -93,13 +95,12 @@ public class AuthService implements UserDetailsService {
             Funcionario funcionario = new Funcionario();
 
             funcionario.setIdFuncionario(UUID.randomUUID().toString());
-            funcionario.setEmail("tangomaster1010@hmv-master.com.br");
+            funcionario.setEmail(userMaster.getEmail());
 
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String senha = "tenhoMundialF1faç";
+            String senha = userMaster.getPassword();
             var senhaCriptografada = passwordEncoder.encode(senha);
             funcionario.setSenha(senhaCriptografada);
-
 
             Role role = roleRepository.findRoleByAuthority(NivelPermissaoEnum.ROLE_MASTER.name());
             funcionario.getRoles().add(role);
