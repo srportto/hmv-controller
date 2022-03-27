@@ -7,8 +7,19 @@ HMV administrativa diz respeito as principais endpoints para uma gestão "basica
 
 ## Requisitos de negócios
 - [ ] Possibilitar o cadastro de funcionarios
-- [ ] Possibilitar o cadastro de especialidades
-- [ ] Possibilitar o cadastro de convenios
+- [ ] Possibilitar o cadastro(SIMPLES) Pacientes
+- [ ] Possibilitar o cadastro(COMPLETO) Pacientes
+- [ ] Possibilitar o cadastro de unidades do hospital HMV
+- [ ] Possibilitar o cadastro de convenios associados ao HMV
+- [ ] Possibilitar login dos Pacientes
+- [ ] Possibilitar login dos funcionários
+- [ ] Efetuar os controles de autenticacao e autorização 
+- [ ] Possibilitar consulta detalhada de pacientes 
+- [ ] Possibilitar que o paciente solicite o check-in digital
+- [ ] Calcular o "Score" de prioridade de atendimento
+- [ ] Possibilitar que o paciente cancele o check-in digital
+- [ ] Possibilitar consulta de pedidos de atendimentos em aberto
+- [ ] Possibilitar alteração do status de um pedido de atendimento
 - [ ] Possibilitar a consulta(lista/detalhe) funcionarios
 - [ ] Possibilitar a consulta(lista/detalhe) especialidades
 - [ ] Possibilitar a consulta(lista/detalhe) convenios
@@ -18,11 +29,17 @@ HMV administrativa diz respeito as principais endpoints para uma gestão "basica
 
 
 ## Requisitos de técnicos
-- [ ] Blablabla
+- [x] Prover endpoints REST para interação com as partes mobile e web da aplicação
+- [x] Usar banco de dados relacional com "engine" Open Souurce
+- [x] Usar uma liguagem de programação JAVA, para aplicação e para a infra
+- [x] Usar suite de tecnologias de cloud publica
+- [x] Usar docker para execução e testes da aplicação
+- [x] Usar autenticação e autorização via token (Spring security + Oauth2)
+- [x] Usar um ORM para interagir com o Banco de dados
 
 
 ## Protótipo da aplicação
- ⚠ Em desenvolvimento ⚠
+ - [] Entregar um Nesse MVP, do fluxo de check-in virtual para os pacientes do hospital HMV
 
 
 ## Modelo conceitual
@@ -46,18 +63,21 @@ HMV administrativa diz respeito as principais endpoints para uma gestão "basica
 - Spring Security
 - Spring Data JPA  
 - JPA / Hibernate
-- Maven
-- FlayWay (migrations)
+- Maven 3.8.4
+- Docker (criação de imagem(dockerfile), images, containers )
+
 - JSON
 - MySql  
 - Intellij IDE
 - Lombok
 
 ## Front end
-- Não há 
+- [X] Mobile - App para Pacientes
+- [X] Web - Aplicação administrativa
 
 ## Implantação em produção
-- [ ] Deploy na AWS 
+- [x] Imagem da aplicação no dockerHub (hmv-api: 4.0)
+- [x] Deploy na AWS (ECS, Fargate, ALB, RDS + MariaDB)
 
 
 # Como executar o projeto
@@ -67,14 +87,16 @@ Pré-requisitos:
 * Java 11
 * MySql server 8.0
 * MySql Workbench 8.0 CE
+* Docker
+* Postman ou equivalente
 
 
 ```bash
 # clonar repositório
-git clone https://github.com/srportto/hmv-cadastro-administrativo-controller.git
+git clone git@github.com:srportto/hmv-controller.git
 
 # entrar na pasta do projeto back end
-cd hmv-cadastro-administrativo-controller
+cd hmv-controller/app
 
 # executar o projeto
 ./mvnw spring-boot:run
@@ -83,5 +105,9 @@ cd hmv-cadastro-administrativo-controller
 
 
 # Autores (grupo 17 - Challenge FIAP 2022)
-⚠ Nomes em breve ⚠
+- Alan
+- Caique Porto
+- Carlos
+- Gabriel
+- Orlando
 
