@@ -6,26 +6,26 @@ HMV administrativa diz respeito as principais endpoints para uma gestão "basica
 
 
 ## Requisitos de negócios
-- [ ] Possibilitar o cadastro de funcionarios
-- [ ] Possibilitar o cadastro(SIMPLES) Pacientes
-- [ ] Possibilitar o cadastro(COMPLETO) Pacientes
-- [ ] Possibilitar o cadastro de unidades do hospital HMV
-- [ ] Possibilitar o cadastro de convenios associados ao HMV
-- [ ] Possibilitar login dos Pacientes
-- [ ] Possibilitar login dos funcionários
-- [ ] Efetuar os controles de autenticacao e autorização 
-- [ ] Possibilitar consulta detalhada de pacientes 
-- [ ] Possibilitar que o paciente solicite o check-in digital
-- [ ] Calcular o "Score" de prioridade de atendimento
-- [ ] Possibilitar que o paciente cancele o check-in digital
-- [ ] Possibilitar consulta de pedidos de atendimentos em aberto
-- [ ] Possibilitar alteração do status de um pedido de atendimento
-- [ ] Possibilitar a consulta(lista/detalhe) funcionarios
-- [ ] Possibilitar a consulta(lista/detalhe) especialidades
-- [ ] Possibilitar a consulta(lista/detalhe) convenios
-- [ ] Possibilitar a alteração/atualização de funcionarios
-- [ ] Possibilitar a alteração/atualização de especialidades
-- [ ] Possibilitar a alteração/atualização de convenios
+- [x] Possibilitar o cadastro de funcionarios
+- [x] Possibilitar o cadastro(SIMPLES) Pacientes
+- [x] Possibilitar o cadastro(COMPLETO) Pacientes
+- [x] Possibilitar o cadastro de unidades do hospital HMV
+- [x] Possibilitar o cadastro de convenios associados ao HMV
+- [x] Possibilitar login dos Pacientes
+- [x] Possibilitar login dos funcionários
+- [x] Efetuar os controles de autenticacao e autorização 
+- [x] Possibilitar consulta detalhada de pacientes 
+- [x] Possibilitar que o paciente solicite o check-in digital
+- [x] Calcular o "Score" de prioridade de atendimento
+- [x] Possibilitar que o paciente cancele o check-in digital
+- [x] Possibilitar consulta de pedidos de atendimentos em aberto
+- [x] Possibilitar alteração do status de um pedido de atendimento
+- [x] Possibilitar a consulta(lista/detalhe) funcionarios
+- [x] Possibilitar a consulta(lista/detalhe) especialidades
+- [x] Possibilitar a consulta(lista/detalhe) convenios
+- [x] Possibilitar a alteração/atualização de funcionarios
+- [x] Possibilitar a alteração/atualização de especialidades
+- [x] Possibilitar a alteração/atualização de convenios
 
 
 ## Requisitos de técnicos
