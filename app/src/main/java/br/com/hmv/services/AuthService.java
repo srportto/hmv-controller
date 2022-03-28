@@ -92,52 +92,62 @@ public class AuthService implements UserDetailsService {
         logger.info("{} - criando usuario master {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
 
         try {
-            Funcionario funcionario = new Funcionario();
 
-            funcionario.setIdFuncionario(UUID.randomUUID().toString());
-            funcionario.setEmail(userMaster.getEmail());
+            var funcionario = funcionarioRepository.findFuncionarioByEmail(userMaster.getEmail());
 
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String senha = userMaster.getPassword();
-            var senhaCriptografada = passwordEncoder.encode(senha);
-            funcionario.setSenha(senhaCriptografada);
+            if (funcionario == null) {
+                logger.info("{} - usuario master ainda nao cadastrado {}", logCode, userMaster.getEmail());
+                funcionario = new Funcionario();
 
-            Role role = roleRepository.findRoleByAuthority(NivelPermissaoEnum.ROLE_MASTER.name());
-            funcionario.getRoles().add(role);
-            funcionario.setCpf("999-999-999-99");
-            funcionario.setCrm("");
-            funcionario.setPrimeiroNome("usermaster");
-            funcionario.setNomeCompleto("user master application hmv");
-            funcionario.setDataNascimento(LocalDate.of(1993, 10, 02));
+                funcionario.setIdFuncionario(UUID.randomUUID().toString());
+                funcionario.setEmail(userMaster.getEmail());
 
-            EnderecoAdministrativo endereco = new EnderecoAdministrativo();
-            endereco.setCodigoEndereco(UUID.randomUUID().toString());
-            endereco.setDescricao("endereco da matriz");
-            endereco.setLogradouro("R. Ramiro Barcelos");
-            endereco.setNumero(910);
-            endereco.setComplemento("predio cinza");
-            endereco.setCidade("Porto Alegre");
-            endereco.setUf("RS");
-            endereco.setCep(90035000);
+                BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                String senha = userMaster.getPassword();
+                var senhaCriptografada = passwordEncoder.encode(senha);
+                funcionario.setSenha(senhaCriptografada);
 
-            funcionario.setEndereco(endereco);
-            funcionario.setCodigoGrupoFuncao(GrupoFuncaoFuncionarioEnum.MASTER.getCodigoGrupoFuncaoFuncionario());
-            funcionario.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
+                Role role = roleRepository.findRoleByAuthority(NivelPermissaoEnum.ROLE_MASTER.name());
+                funcionario.getRoles().add(role);
+                funcionario.setCpf("999-999-999-99");
+                funcionario.setCrm("");
+                funcionario.setPrimeiroNome("usermaster");
+                funcionario.setNomeCompleto("user master application hmv");
+                funcionario.setDataNascimento(LocalDate.of(1993, 10, 02));
 
-            Telefone telefone = new Telefone();
-            telefone.setDescricao("telefone user master");
-            telefone.setCodigoPais(55);
-            telefone.setCodigoArea(11);
-            telefone.setNumero(973801014);
+                EnderecoAdministrativo endereco = new EnderecoAdministrativo();
+                endereco.setCodigoEndereco(UUID.randomUUID().toString());
+                endereco.setDescricao("endereco da matriz");
+                endereco.setLogradouro("R. Ramiro Barcelos");
+                endereco.setNumero(910);
+                endereco.setComplemento("predio cinza");
+                endereco.setCidade("Porto Alegre");
+                endereco.setUf("RS");
+                endereco.setCep(90035000);
 
-            funcionario.setTelefone(telefone);
+                funcionario.setEndereco(endereco);
+                funcionario.setCodigoGrupoFuncao(GrupoFuncaoFuncionarioEnum.MASTER.getCodigoGrupoFuncaoFuncionario());
+                funcionario.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
 
-            funcionarioRepository.save(funcionario);
+                Telefone telefone = new Telefone();
+                telefone.setDescricao("telefone user master");
+                telefone.setCodigoPais(55);
+                telefone.setCodigoArea(11);
+                telefone.setNumero(973801014);
+
+                funcionario.setTelefone(telefone);
+
+                funcionarioRepository.save(funcionario);
+                logger.info("{} - usuario master criado com sucesso {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
+            } else {
+                logger.info("{} - usuario master ja cadastrado {}", logCode, userMaster.getEmail());
+
+            }
+
         } catch (Exception e) {
             logger.error("{} - erro ao cadastrar usuario master , possivel cadadastrar {}", logCode, e.getMessage());
         }
 
-        logger.info("{} - usuario master criado com sucesso {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());
     }
 
 }
