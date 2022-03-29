@@ -45,7 +45,7 @@ public class Service01Stack extends Stack {
                 .publicLoadBalancer(true)   //Criar um load balancer publico
                 .taskImageOptions(ApplicationLoadBalancedTaskImageOptions.builder()
                         .containerName("container-hmv-controller")
-                        .image(ContainerImage.fromRegistry("pcaique/hmv-api:5.0"))  //!imagem do serviço no ECR ou Docker Hub
+                        .image(ContainerImage.fromRegistry("pcaique/hmv-api:6.0"))  //!imagem do serviço no ECR ou Docker Hub
                         .containerPort(8080)
                         .logDriver(LogDriver.awsLogs(AwsLogDriverProps.builder()
                                 .logGroup(LogGroup.Builder.create(this, "ServiceHmvControllerLogGroup")
