@@ -1,5 +1,6 @@
 package br.com.hmv.dtos.request.administrativo;
 
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
 import br.com.hmv.services.validation.administrativo.funcionario.criacao.FuncionarioInsertValid;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -47,6 +48,9 @@ public class FuncionarioInsertRequestDTO {
     @NotNull(message = "Campo data_nascimento deve ser preenchido")
     @JsonProperty("data_nascimento")
     private LocalDate dataNascimento;
+
+    @JsonProperty("genero")
+    private GeneroPessoasEnum genero;
 
     @Valid
     @NotNull(message = "endereco deve ser preenchido")

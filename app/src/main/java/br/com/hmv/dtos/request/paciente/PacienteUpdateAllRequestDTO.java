@@ -1,5 +1,6 @@
 package br.com.hmv.dtos.request.paciente;
 
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,9 @@ public class PacienteUpdateAllRequestDTO {
 
     @JsonProperty("nome_completo_pai")
     private String nomeCompletoPai;
+
+    @JsonProperty("genero")
+    private GeneroPessoasEnum genero;
 
     @JsonProperty("endereco")
     private EnderecoRequestDTO endereco;

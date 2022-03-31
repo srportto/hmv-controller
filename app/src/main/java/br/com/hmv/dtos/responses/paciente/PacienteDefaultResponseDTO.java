@@ -1,6 +1,7 @@
 package br.com.hmv.dtos.responses.paciente;
 
 import br.com.hmv.models.enums.CadastroPacienteEnum;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -44,9 +45,11 @@ public class PacienteDefaultResponseDTO {
     @JsonProperty("nome_completo_mae")
     private String nomeCompletoMae;
 
-
     @JsonProperty("nome_completo_pai")
     private String nomeCompletoPai;
+
+    @JsonProperty("genero")
+    private GeneroPessoasEnum genero;
 
     @JsonProperty("endereco")
     private EnderecoDefaultResponseDTO endereco;

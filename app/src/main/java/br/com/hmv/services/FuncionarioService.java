@@ -10,6 +10,7 @@ import br.com.hmv.exceptions.DatabaseException;
 import br.com.hmv.exceptions.ResourceNotFoundException;
 import br.com.hmv.models.entities.Funcionario;
 import br.com.hmv.models.entities.Role;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
 import br.com.hmv.models.enums.NivelPermissaoEnum;
 import br.com.hmv.models.enums.StatusFuncionarioEnum;
@@ -193,6 +194,12 @@ public class FuncionarioService {
         entity.setCodigoGrupoFuncao(dto.getGrupoFuncaoFuncionario().getCodigoGrupoFuncaoFuncionario());
         entity.setCodigoStatusFuncionario(StatusFuncionarioEnum.ATIVO.getCodigoStatusFuncionario());
 
+        if (dto.getGenero() == null) {
+            entity.setCodigoGeneroPessoa(GeneroPessoasEnum.OUTROS.getCodigoGeneroPessoa());
+        } else {
+            entity.setCodigoGeneroPessoa(dto.getGenero().getCodigoGeneroPessoa());
+        }
+
         var senhaFuncionario = dto.getSenha();
         var senhaFuncionarioCriptografada = passwordEncoder.encode(senhaFuncionario);
         entity.setSenha(senhaFuncionarioCriptografada);
@@ -225,6 +232,7 @@ public class FuncionarioService {
         var responseDto = FuncionarioMapper.INSTANCE.deFuncionarioParaDto(entity);
         responseDto.setStatusFuncionario(StatusFuncionarioEnum.obterStatusFuncionario(entity.getCodigoStatusFuncionario()));
         responseDto.setGrupoFuncaoFuncionario(GrupoFuncaoFuncionarioEnum.obterGrupoFuncaoFuncionario(entity.getCodigoGrupoFuncao()));
+        responseDto.setGenero(GeneroPessoasEnum.obterGeneroPessoa(entity.getCodigoGeneroPessoa()));
 
         logger.info("{} - response default montado com sucesso {}", logCode, responseDto);
         return responseDto;

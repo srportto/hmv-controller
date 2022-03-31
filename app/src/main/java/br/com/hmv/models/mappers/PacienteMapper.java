@@ -6,6 +6,7 @@ import br.com.hmv.dtos.responses.paciente.PacienteForListResponseDTO;
 import br.com.hmv.dtos.responses.paciente.PacienteInsertResponseDTO;
 import br.com.hmv.models.entities.Paciente;
 import br.com.hmv.models.enums.CadastroPacienteEnum;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeforeMapping;
 import org.mapstruct.Mapper;
@@ -32,6 +33,7 @@ public abstract class PacienteMapper {
     @AfterMapping
     protected void ajustaDepoisDeMapearEntityParaDtoDefault(Paciente entity, @MappingTarget PacienteDefaultResponseDTO dto) {
         dto.setIndicadorCadastro(CadastroPacienteEnum.obterStatusCadastroPaciente(entity.getIndicadorTipoCadastroRealizado()));
+        dto.setGenero(GeneroPessoasEnum.obterGeneroPessoa(entity.getCodigoGeneroPessoa()));
 
     }
 

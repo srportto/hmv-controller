@@ -61,10 +61,11 @@ public class Paciente implements UserDetails, Serializable {
     @Column(name = "indicador_tipo_cadastro_realizado", nullable = false, length = 1)
     private Integer indicadorTipoCadastroRealizado;
 
+    @Column(name = "genero_pessoa", nullable = false, length = 1)
+    private Integer codigoGeneroPessoa;
 
     @Column(name = "nome_completo", nullable = true)
     private String nomeCompleto;
-
 
     @Column(name = "nome_completo_mae", nullable = true)
     private String nomeCompletoMae;

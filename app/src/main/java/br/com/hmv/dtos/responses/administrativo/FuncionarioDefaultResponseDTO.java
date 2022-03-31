@@ -2,6 +2,7 @@ package br.com.hmv.dtos.responses.administrativo;
 
 import br.com.hmv.dtos.general.administrativo.EspecialidadeAdministrativaDTO;
 import br.com.hmv.dtos.general.administrativo.TelefoneDTO;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
 import br.com.hmv.models.enums.StatusFuncionarioEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -45,6 +46,9 @@ public class FuncionarioDefaultResponseDTO {
 
     @JsonProperty("data_nascimento")
     private LocalDate dataNascimento;
+
+    @JsonProperty("genero")
+    private GeneroPessoasEnum genero;
 
     private EnderecoDefaultResponseDTO endereco;
 

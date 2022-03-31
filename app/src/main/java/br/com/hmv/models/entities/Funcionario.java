@@ -73,6 +73,9 @@ public class Funcionario implements UserDetails, Serializable {
     @Column(name = "status", nullable = false)
     private Long codigoStatusFuncionario;
 
+    @Column(name = "genero_pessoa", nullable = false, length = 1)
+    private Integer codigoGeneroPessoa;
+
     @Embedded
     private Telefone telefone;
 

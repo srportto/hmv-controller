@@ -15,6 +15,7 @@ import br.com.hmv.models.entities.Paciente;
 import br.com.hmv.models.entities.Role;
 import br.com.hmv.models.entities.Telefone;
 import br.com.hmv.models.enums.CadastroPacienteEnum;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.NivelPermissaoEnum;
 import br.com.hmv.models.mappers.PacienteMapper;
 import br.com.hmv.repositories.PacienteRepository;
@@ -105,6 +106,7 @@ public class PacienteService {
 
         entity.setIdPaciente(UUID.randomUUID().toString());
         entity.setIndicadorTipoCadastroRealizado(CadastroPacienteEnum.SIMPLES.getCodigoStatusCadastroPaciente());
+        entity.setCodigoGeneroPessoa(GeneroPessoasEnum.OUTROS.getCodigoGeneroPessoa());
 
         var senhaPaciente = dto.getSenha();
         var senhaPacienteCriptografada = passwordEncoder.encode(senhaPaciente);
@@ -145,6 +147,10 @@ public class PacienteService {
             entity.setTelefone(telefone);
             entity.setConvenio(convenio);
             entity.setIndicadorTipoCadastroRealizado(CadastroPacienteEnum.COMPLETO.getCodigoStatusCadastroPaciente());
+        }
+
+        if(dto.getGenero() != null){
+            entity.setCodigoGeneroPessoa(dto.getGenero().getCodigoGeneroPessoa());
         }
 
         //para atualizar nomeCompleto

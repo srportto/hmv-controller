@@ -6,6 +6,7 @@ import br.com.hmv.models.entities.Funcionario;
 import br.com.hmv.models.entities.Paciente;
 import br.com.hmv.models.entities.Role;
 import br.com.hmv.models.entities.Telefone;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
 import br.com.hmv.models.enums.NivelPermissaoEnum;
 import br.com.hmv.models.enums.StatusFuncionarioEnum;
@@ -167,6 +168,7 @@ public class AuthService implements UserDetailsService {
         telefone.setNumero(973801014);
 
         funcionario.setTelefone(telefone);
+        funcionario.setCodigoGeneroPessoa(GeneroPessoasEnum.MASCULINO.getCodigoGeneroPessoa());
 
         funcionarioRepository.save(funcionario);
         logger.info("{} - usuario master criado com sucesso {}", logCode, NivelPermissaoEnum.ROLE_MASTER.name());

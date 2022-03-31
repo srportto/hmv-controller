@@ -23,7 +23,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         Boolean isFuncionario = false;
-        String cpf = "";
+        //String cpf = "";
         String primeiroNome = "";
         String idUserAutenticado = "";
 
@@ -31,14 +31,14 @@ public class JwtTokenEnhancer implements TokenEnhancer {
 
         var pacienteUser = pacienteRepository.findPacienteByEmail(emailAutenticado);
         if (pacienteUser != null) {
-            cpf = pacienteUser.getCpf();
+            //cpf = pacienteUser.getCpf();
             primeiroNome = pacienteUser.getPrimeiroNome();
             idUserAutenticado = pacienteUser.getIdPaciente();
         } else {
             var funcionarioUser = funcionarioRepository.findFuncionarioByEmail(emailAutenticado);
             if (funcionarioUser != null) {
                 isFuncionario = true;
-                cpf = funcionarioUser.getCpf();
+                //cpf = funcionarioUser.getCpf();
                 primeiroNome = funcionarioUser.getPrimeiroNome();
                 idUserAutenticado = funcionarioUser.getIdFuncionario();
 
@@ -47,7 +47,7 @@ public class JwtTokenEnhancer implements TokenEnhancer {
 
         Map<String, Object> map = new HashMap<>();
         map.put("funcionario", isFuncionario);
-        map.put("cpf", cpf);
+        //map.put("cpf", cpf);
         map.put("primeiro_nome", primeiroNome);
         map.put("id_user", idUserAutenticado);
 

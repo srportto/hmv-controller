@@ -4,6 +4,7 @@ import br.com.hmv.dtos.request.administrativo.FuncionarioInsertRequestDTO;
 import br.com.hmv.dtos.responses.administrativo.FuncionarioDefaultResponseDTO;
 import br.com.hmv.dtos.responses.administrativo.FuncionarioForListResponseDTO;
 import br.com.hmv.models.entities.Funcionario;
+import br.com.hmv.models.enums.GeneroPessoasEnum;
 import br.com.hmv.models.enums.GrupoFuncaoFuncionarioEnum;
 import br.com.hmv.models.enums.StatusFuncionarioEnum;
 import org.mapstruct.AfterMapping;
@@ -35,6 +36,7 @@ public abstract class FuncionarioMapper {
         dto.getEspecialidades().clear();
         var especialidades = entity.getEspecialidades();
         especialidades.forEach(especialidadeItem -> dto.getEspecialidades().add(EspecialidadeMapper.INSTANCE.deEspecialidadeParaDto(especialidadeItem)));
+        dto.setGenero(GeneroPessoasEnum.obterGeneroPessoa(entity.getCodigoGeneroPessoa()));
     }
 
 
