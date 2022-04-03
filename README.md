@@ -39,7 +39,7 @@ HMV administrativa diz respeito as principais endpoints para uma gestão "basica
 
 
 ## Protótipo da aplicação
- - [] Entregar um Nesse MVP, do fluxo de check-in virtual para os pacientes do hospital HMV
+ - [x] Entregar um Nesse MVP, do fluxo de check-in virtual para os pacientes do hospital HMV
 
 
 ## Modelo conceitual
